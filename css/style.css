@@ -1,5 +1,9 @@
 @import 'http://fonts.googleapis.com/css?family=Noto+Sans';
- 
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../assets/fonts/glyphicons-halflings-regular.eot');
+  src: url('../assets/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../assets/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../assets/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../assets/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
  
 
 
@@ -45,3 +49,28 @@ body{color:#333;background:#a7ab8c;font:12px/1.5 \5b8b\4f53;}
 @media only screen and (max-width: 768px) {
 #msgBox{width:100%;height:100%;}
 }*/
+#login-form {
+	margin:5% auto;
+	max-width:500px;
+}
+/* home page */
+#wrapper{
+	padding-top:50px;
+}
+.glyphicon-log-out:before {
+    content: "\e163";
+}
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-user:before {
+    content: "\e008";
+}

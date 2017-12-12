@@ -58,7 +58,7 @@
 				var userpic = "img/" + $("pic",this).text();
 				var htmlcode = "<li><div class=\"userPic\"><img src=\"" + userpic + "\"></div>\
 							 <div class=\"content\">\
-							 	<div class=\"author\"><a href=\"javascript:;\">" + author + "</a>:</div>\
+							 	<div class=\"author\"><a href=\"javascript:;\">" + $("#inputAuthor").val() + "</a>:</div>\
 								<div class=\"msgInfo\">" + content + "</div>\
 								<div class=\"times\"><span>" + timeFormat(timestamp) +
 									"</span></div>\
