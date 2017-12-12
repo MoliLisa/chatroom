@@ -1,4 +1,1 @@
-problem1: 发送的信息显示两次，因为click时传入timestamp后 还没有update它的值的这个时间差，（也就是ajax传出和传回的时间差） updatemsg（）运行了，也就同样的timestamp更新了两次。    
-solution：增加updatestatus，when click send， set updatestatus=false，注意，在addmsg（）设置updatestatus=true 是因为ajax不会等php运行结束就会先运行后面的程序。
-
-problem2：scroll， height->scroll height
+针对mysql的版本不同 sql的function变了， 在php里。
