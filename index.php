@@ -14,21 +14,18 @@
 	if( isset($_POST['btn-login']) ) {	
 		
 		// prevent sql injections/ clear user invalid inputs
-		$email = trim($_POST['email']);
-		$email = strip_tags($email);
-		$email = htmlspecialchars($email);
+		$name = trim($_POST['name']);
+		$name = strip_tags($name);
+		$name = htmlspecialchars($name);
 		
 		$pass = trim($_POST['pass']);
 		$pass = strip_tags($pass);
 		$pass = htmlspecialchars($pass);
 		// prevent sql injections / clear user invalid inputs
 		
-		if(empty($email)){
+		if(empty($name)){
 			$error = true;
-			$emailError = "Please enter your email address.";
-		} else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
-			$error = true;
-			$emailError = "Please enter valid email address.";
+			$nameError = "Please enter your name.";
 		}
 		
 		if(empty($pass)){
@@ -41,7 +38,7 @@
 			
 			$password = hash('sha256', $pass); // password hashing using SHA256
 		
-			$res=mysql_query("SELECT userId, userName, userPass FROM users WHERE userEmail='$email'");
+			$res=mysql_query("SELECT userId, userName, userPass FROM users WHERE userName='$name'");
 			$row=mysql_fetch_array($res);
 			$count = mysql_num_rows($res); // if uname/pass correct it returns must be 1 row
 			
@@ -93,13 +90,14 @@
                 <?php
 			}
 			?>
-            
-            <div class="form-group">
+
+			
+			<div class="form-group">
             	<div class="input-group">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-            	<input type="email" name="email" class="form-control" placeholder="Your Email" value="<?php echo $email; ?>" maxlength="40" />
+                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+            	<input type="text" name="name" class="form-control" placeholder="Enter Name" maxlength="50" value="<?php echo $name ?>" />
                 </div>
-                <span class="text-danger"><?php echo $emailError; ?></span>
+                <span class="text-danger"><?php echo $nameError; ?></span>
             </div>
             
             <div class="form-group">

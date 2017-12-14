@@ -16,7 +16,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Welcome - <?php echo $userRow['userEmail']; ?></title>
+<title>Welcome - <?php echo $userRow['userName']; ?></title>
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
  <script src="scripts/jquery-1.3.1.js" type="text/javascript"></script>
@@ -30,7 +30,7 @@
 </head>
 <body>
 <div style="text-align: right;">
-	<span class="glyphicon glyphicon-user"></span>&nbsp;Hi, <?php echo $userRow['userEmail']; ?>&nbsp;<span class="caret"></span>
+	<span class="glyphicon glyphicon-user"></span>&nbsp;Hi, <?php echo $userRow['userName']; ?>&nbsp;<span class="caret"></span>
 	<a href="logout.php?logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign Out</a>
 </div> 
          
@@ -38,10 +38,12 @@
 		<ul class="messagewindow"  >	
 		</ul>
 		<form class="chatform" action="#">	
+<!--
 			<div>
 				<input id="author" class="" value="">
 				<p id="face"><img src="img/face1.gif" class="current"><img src="img/face2.gif" class=""><img src="img/face3.gif" class=""><img src="img/face4.gif" class=""><img src="img/face5.gif" class=""><img src="img/face6.gif" class=""><img src="img/face7.gif" class=""><img src="img/face8.gif" class=""></p>
 			</div>
+-->
 			<div>
 				<textarea id="msg" class=""></textarea>
 			</div>
@@ -53,7 +55,8 @@
 		</form>
 	</div>
 	
-<input type="hidden" id="inputAuthor"  value="<?php echo $userRow[' ']; ?>" />
+<input type="hidden" id="inputAuthor"  value="<?php echo $userRow['userName']; ?>" />
+<input type="hidden" id="inputPic"  value="<?php echo $userRow['userPic']; ?>" />
     
 <!--
     <script src="assets/jquery-1.11.3-jquery.min.js"></script>

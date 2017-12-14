@@ -3,3 +3,7 @@
 3.登录并且储存个人信息
 4.上传头像照片
 5.泡泡格式，区分左右
+
+6.hide until load finish. chatroom
+7.输入的回车空格被省略
+8.ctrl+enter发送

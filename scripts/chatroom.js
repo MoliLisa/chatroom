@@ -9,15 +9,15 @@
 			//表单提交
 			$(".chatform").submit(function funcSubmit(){
 				updateStatus = false;
-				var picPath = $("#face img").filter(".current")[0].src;
-				var index = picPath.lastIndexOf("\/");  
-				var picName = picPath.substring(index + 1, picPath.length);
+//				var picPath = $("#face img").filter(".current")[0].src;
+//				var index = picPath.lastIndexOf("\/");  
+//				var picName = picPath.substring(index + 1, picPath.length);
 				$.post("backend.php",{
 							message: $("#msg").val(),
-							name: $("#author").val(),
+							name: $("#inputAuthor").val(),
 							action: "postmsg",
 							time: timestamp,
-							pic: picName
+							pic: $("#inputPic").val()
 						}, function(xml) {
 					//清空信息文本框内容
 					$("#msg").val("");
@@ -58,7 +58,7 @@
 				var userpic = "img/" + $("pic",this).text();
 				var htmlcode = "<li><div class=\"userPic\"><img src=\"" + userpic + "\"></div>\
 							 <div class=\"content\">\
-							 	<div class=\"author\"><a href=\"javascript:;\">" + $("#inputAuthor").val() + "</a>:</div>\
+							 	<div class=\"author\"><a href=\"javascript:;\">" + author + "</a>:</div>\
 								<div class=\"msgInfo\">" + content + "</div>\
 								<div class=\"times\"><span>" + timeFormat(timestamp) +
 									"</span></div>\
