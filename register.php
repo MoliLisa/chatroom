@@ -15,9 +15,13 @@
 		$name = strip_tags($name);
 		$name = htmlspecialchars($name);
 		
+
 		$pass = trim($_POST['pass']);
 		$pass = strip_tags($pass);
 		$pass = htmlspecialchars($pass);
+		$pass2 = trim($_POST['pass2']);
+		$pass2 = strip_tags($pass2);
+		$pass2 = htmlspecialchars($pass2);
 		
 		$face = $_POST['face'];
 	
@@ -51,8 +55,16 @@
 			$passError = "Password must have atleast 6 characters.";
 		}
 		
+		// second password
+		if ($pass != $pass2) {
+			$error = true;
+			$passError2 = "Please enter the same password.";
+		}
+		
 		// password encrypt using SHA256();
 		$password = hash('sha256', $pass);
+		
+		
 		
 		// if there's no error, continue to signup
 		if( !$error ) {
@@ -88,28 +100,19 @@
 	
 	<meta http-equiv="Cache-control" content="no-cache">
 
+	
+<!--upload-->
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<!--<link rel="stylesheet" href="css/style.css" type="text/css" />-->
+<!--		<meta name="robots" content="all">-->
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/iscroll-zoom.js"></script>
+<script src="js/hammer.js"></script>
+<script src="js/lrz.all.bundle.js"></script>
+<script src="js/jquery.photoClip.js"></script>
 
 </head>
 <body>
-
-	<script>
-  function myFun(sId) {
-    var oImg = document.getElementsByTagName('img');
-
-    for (var i = 0; i < oImg.length; i++) {
-      if (oImg[i].id == sId) {
-        oImg[i].previousSibling.previousSibling.checked = true;
-        oImg[i].style.border = '1px solid #FF6600';
-      } else {
-        oImg[i].style.border = '1px solid #008800';
-
-      }
-    }
-  }
-
-
-</script>
-	
 	
 	
 	
@@ -150,7 +153,20 @@
 				<input type="radio" name="face" value="face6.gif" style="display: none"><img src="img/face6.gif" class="">
 				<input type="radio" name="face" value="face7.gif" style="display: none"><img src="img/face7.gif" class="">
 				<input type="radio" name="face" value="face8.gif" style="display: none"><img src="img/face8.gif" class="">
+				<input type="radio" name="face" value="" style="display: none"><img src="" class="uploadSrc">
 			</div>	
+			
+					
+<div id="container" ontouchstart="">
+	
+	<div id="view" title="请上传 428*321 的封面图片"></div>
+	<div style="height:10px;"></div>
+	<div id="btn">点击上传封面图
+		<input type="file" id="file" >
+	</div>
+</div>
+<input id="iiinput" value="">
+
 				
             <div class="form-group">
             	<div class="input-group">
@@ -166,6 +182,13 @@
             	<input type="password" name="pass" class="form-control" placeholder="Enter Password" maxlength="15" />
                 </div>
                 <span class="text-danger"><?php echo $passError; ?></span>
+            </div>
+			<div class="form-group">
+            	<div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+            	<input type="password" name="pass2" class="form-control" placeholder="Enter Password Again" maxlength="15" />
+                </div>
+                <span class="text-danger"><?php echo $passError2; ?></span>
             </div>
             
             <div class="form-group">
@@ -191,6 +214,18 @@
 
 </div>
 
+	
+	<input value="<?php echo $pass[0]; ?>" />
+   
+<div class="cover-wrap" >	
+		<div class="cover-wrap-first">
+			<div id="clipArea"></div>
+			<div class="cover-wrap-second">
+				<button id="clipBtn">保存封面</button>
+			</div>
+		</div>
+	</div>
+	
 </body>
 </html>
 <?php ob_end_flush(); ?>
