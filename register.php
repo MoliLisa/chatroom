@@ -24,8 +24,12 @@
 		$pass2 = htmlspecialchars($pass2);
 		
 		$face = $_POST['face'];
-	
-		// basic name validation
+		
+//		list($type, $face) = explode(';', $face);
+//		list(, $face) = explode(',', $face);
+//		file_put_contents('tmp/img.jpg', base64_decode($face));
+
+		// basic name validations
 		if (empty($name)) {
 			$error = true;
 			$nameError = "Please enter your full name.";
@@ -68,8 +72,9 @@
 		
 		// if there's no error, continue to signup
 		if( !$error ) {
-			
-			$query = "INSERT INTO users(userName,userPass,userPic) VALUES('$name','$password','$face')";
+//			rename("img/"."upload.jpg","img/"."lisa".".gif");
+			rename("img/".$face,"img/".$name.".gif");
+			$query = "INSERT INTO users(userName,userPass,userPic) VALUES('$name','$password',CONCAT('$name','.gif'))";
 			$res = mysql_query($query);
 				
 			if ($res) {
@@ -96,7 +101,7 @@
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"  />
 <link rel="stylesheet" href="style.css" type="text/css" />
 	 <script src="scripts/jquery-1.3.1.js" type="text/javascript"></script>
- <script src="scripts/register.js" type="text/javascript"></script>
+<!-- <script src="scripts/register.php" type="text/javascript"></script>-->
 	
 	<meta http-equiv="Cache-control" content="no-cache">
 
@@ -114,6 +119,44 @@
 </head>
 <body>
 	
+<script>
+
+$(function(){
+	var clipArea = new bjj.PhotoClip("#clipArea", {
+		size: [100, 100], 
+		outputSize: [50, 50],
+		file: "#file", 
+		view: "#view", 
+		ok: "#clipBtn", 
+		loadStart: function() {
+			$('.cover-wrap').fadeIn();
+			console.log("照片读取中");
+		},
+		loadComplete: function() {
+			console.log("照片读取完成");
+		},
+		clipFinish: function(dataURL) {
+			$('.cover-wrap').fadeOut();
+			$('#view').css('background-size','100% 100%');
+			$(".picURL").val(dataURL);
+			$(".uploadSrc").attr('src', dataURL);
+			$(".uploadSrc").prev().attr('value', 'upload.jpg');
+			
+		$("#formURL").submit();	
+		<?php 
+		 file_put_contents('img/upload.jpg', base64_decode(explode(',', $_POST['picURL'])[1])) ; 
+		?> 
+			console.log(dataURL);
+		}
+	});
+	
+$("#face img").click(function(){						
+	$(this).prev().attr('checked',true);
+	$(this).addClass("current").siblings().removeClass("current");
+
+});
+});
+</script>
 	
 	
 <div class="container">
@@ -153,21 +196,16 @@
 				<input type="radio" name="face" value="face6.gif" style="display: none"><img src="img/face6.gif" class="">
 				<input type="radio" name="face" value="face7.gif" style="display: none"><img src="img/face7.gif" class="">
 				<input type="radio" name="face" value="face8.gif" style="display: none"><img src="img/face8.gif" class="">
+				
 				<input type="radio" name="face" value="" style="display: none"><img src="" class="uploadSrc">
 			</div>	
 			
 					
 <div id="container" ontouchstart="">
-	
-	<div id="view" title="请上传 428*321 的封面图片"></div>
-	<div style="height:10px;"></div>
-	<div id="btn">点击上传封面图
+	<div id="btn">点击上传头像
 		<input type="file" id="file" >
 	</div>
-</div>
-<input id="iiinput" value="">
-
-				
+</div>				
             <div class="form-group">
             	<div class="input-group">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
@@ -214,8 +252,15 @@
 
 </div>
 
-	
-	<input value="<?php echo $pass[0]; ?>" />
+
+<form action="" method="post" id="formURL" target="nm_iframe">
+  <input type="hidden" name="picURL" class="picURL" value="">
+	<button type="submit" id='picForm' name="">submit</button>
+<!--     <input id='picForm' type="button" name="" value="Submit" onclick='return false;' />-->
+</form>
+
+  
+<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>  
    
 <div class="cover-wrap" >	
 		<div class="cover-wrap-first">

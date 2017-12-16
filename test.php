@@ -1,0 +1,1 @@
+<?php rename("img/"."upload.jpg","img/"."lisa".".gif"); ?>

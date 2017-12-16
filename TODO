@@ -7,4 +7,4 @@
 6.hide until load finish. chatroom
 7.输入的回车空格被省略
 8.ctrl+enter发送
-9.register error 连续显示
+9.register error 连续显示,  上面红字出错刷新去不掉 再刷新注册成功。下面错误应及时刷新
