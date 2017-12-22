@@ -1,13 +1,15 @@
 <?php
+
 	ob_start();
 	session_start();
+
 	if( isset($_SESSION['user'])!="" ){
 		header("Location: home.php");
 	}
 	include_once 'dbconnect.php';
 
 	$error = false;
-
+		
 	if ( isset($_POST['btn-signup']) ) {
 		
 		// clean user inputs to prevent sql injections
@@ -23,12 +25,6 @@
 		$pass2 = strip_tags($pass2);
 		$pass2 = htmlspecialchars($pass2);
 		
-		$face = $_POST['face'];
-		
-//		list($type, $face) = explode(';', $face);
-//		list(, $face) = explode(',', $face);
-//		file_put_contents('tmp/img.jpg', base64_decode($face));
-
 		// basic name validations
 		if (empty($name)) {
 			$error = true;
@@ -72,25 +68,21 @@
 		
 		// if there's no error, continue to signup
 		if( !$error ) {
-//			rename("img/"."upload.jpg","img/"."lisa".".gif");
-			rename("img/".$face,"img/".$name.".gif");
-			$query = "INSERT INTO users(userName,userPass,userPic) VALUES('$name','$password',CONCAT('$name','.gif'))";
+			$query = "INSERT INTO users(userName,userPass) VALUES('$name','$password')";
 			$res = mysql_query($query);
 				
 			if ($res) {
 				$errTyp = "success";
 				$errMSG = "Successfully registered, you may login now";
-				unset($name);
-				unset($pass);
-				unset($face);
+				
 			} else {
 				$errTyp = "danger";
 				$errMSG = "Something went wrong, try again later...";	
-			}	
 				
+			}	
+				unset($name);
+				unset($pass);
 		}
-		
-		
 	}
 ?>
 <!DOCTYPE html>
@@ -101,63 +93,8 @@
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"  />
 <link rel="stylesheet" href="style.css" type="text/css" />
 	 <script src="scripts/jquery-1.3.1.js" type="text/javascript"></script>
-<!-- <script src="scripts/register.php" type="text/javascript"></script>-->
-	
-	<meta http-equiv="Cache-control" content="no-cache">
-
-	
-<!--upload-->
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<!--<link rel="stylesheet" href="css/style.css" type="text/css" />-->
-<!--		<meta name="robots" content="all">-->
-<script src="js/jquery-2.1.3.min.js"></script>
-<script src="js/iscroll-zoom.js"></script>
-<script src="js/hammer.js"></script>
-<script src="js/lrz.all.bundle.js"></script>
-<script src="js/jquery.photoClip.js"></script>
-
 </head>
 <body>
-	
-<script>
-
-$(function(){
-	var clipArea = new bjj.PhotoClip("#clipArea", {
-		size: [100, 100], 
-		outputSize: [50, 50],
-		file: "#file", 
-		view: "#view", 
-		ok: "#clipBtn", 
-		loadStart: function() {
-			$('.cover-wrap').fadeIn();
-			console.log("照片读取中");
-		},
-		loadComplete: function() {
-			console.log("照片读取完成");
-		},
-		clipFinish: function(dataURL) {
-			$('.cover-wrap').fadeOut();
-			$('#view').css('background-size','100% 100%');
-			$(".picURL").val(dataURL);
-			$(".uploadSrc").attr('src', dataURL);
-			$(".uploadSrc").prev().attr('value', 'upload.jpg');
-			
-		$("#formURL").submit();	
-		<?php 
-		 file_put_contents('img/upload.jpg', base64_decode(explode(',', $_POST['picURL'])[1])) ; 
-		?> 
-			console.log(dataURL);
-		}
-	});
-	
-$("#face img").click(function(){						
-	$(this).prev().attr('checked',true);
-	$(this).addClass("current").siblings().removeClass("current");
-
-});
-});
-</script>
-	
 	
 <div class="container">
 
@@ -183,29 +120,11 @@ $("#face img").click(function(){
 				<span class="glyphicon glyphicon-info-sign"></span> <?php echo $errMSG; ?>
                 </div>
             	</div>
-                <?php
+                <?php;
 			}
-			?>
-            
-			<div id="face">
-				<input type="radio" name="face" value="face1.gif" style="display: none" checked="true"><img src="img/face1.gif" class="current">
-				<input type="radio" name="face" value="face2.gif" style="display: none"><img src="img/face2.gif" class="">
-				<input type="radio" name="face" value="face3.gif" style="display: none"><img src="img/face3.gif" class="">
-				<input type="radio" name="face" value="face4.gif" style="display: none"><img src="img/face4.gif" class="">
-				<input type="radio" name="face" value="face5.gif" style="display: none"><img src="img/face5.gif" class="">
-				<input type="radio" name="face" value="face6.gif" style="display: none"><img src="img/face6.gif" class="">
-				<input type="radio" name="face" value="face7.gif" style="display: none"><img src="img/face7.gif" class="">
-				<input type="radio" name="face" value="face8.gif" style="display: none"><img src="img/face8.gif" class="">
-				
-				<input type="radio" name="face" value="" style="display: none"><img src="" class="uploadSrc">
-			</div>	
 			
-					
-<div id="container" ontouchstart="">
-	<div id="btn">点击上传头像
-		<input type="file" id="file" >
-	</div>
-</div>				
+			?>
+            		
             <div class="form-group">
             	<div class="input-group">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
@@ -251,26 +170,7 @@ $("#face img").click(function(){
     </div>	
 
 </div>
-
-
-<form action="" method="post" id="formURL" target="nm_iframe">
-  <input type="hidden" name="picURL" class="picURL" value="">
-	<button type="submit" id='picForm' name="">submit</button>
-<!--     <input id='picForm' type="button" name="" value="Submit" onclick='return false;' />-->
-</form>
-
-  
-<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>  
-   
-<div class="cover-wrap" >	
-		<div class="cover-wrap-first">
-			<div id="clipArea"></div>
-			<div class="cover-wrap-second">
-				<button id="clipBtn">保存封面</button>
-			</div>
-		</div>
-	</div>
 	
 </body>
 </html>
-<?php ob_end_flush(); ?>
+<?php ob_end_flush();?>

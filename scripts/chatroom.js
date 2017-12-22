@@ -7,8 +7,9 @@
 			//调用更新信息函数
 			updateMsg();
 			//表单提交
-			$(".chatform").submit(function funcSubmit(){
+			$("#sendBtn").click(function funcSubmit(){
 				updateStatus = false;
+				alert("asdf")
 //				var picPath = $("#face img").filter(".current")[0].src;
 //				var index = picPath.lastIndexOf("\/");  
 //				var picName = picPath.substring(index + 1, picPath.length);
@@ -22,7 +23,7 @@
 					//清空信息文本框内容
 					$("#msg").val("");
 					//调用解析xml的函数
-					
+					alert(xml);
 					addMessages(xml);
 							});
 				return false; //阻止表单提交
@@ -55,7 +56,7 @@
 				var content = $("text",this).text();  //内容
 				timestamp = $("time",this).text();  //内容
 //				var htmlcode = "<strong>"+author+"</strong>: "+content+"<br />";
-				var userpic = "img/" + $("pic",this).text();
+				var userpic = $("pic",this).text();
 				var htmlcode = "<li><div class=\"userPic\"><img src=\"" + userpic + "\"></div>\
 							 <div class=\"content\">\
 							 	<div class=\"author\"><a href=\"javascript:;\">" + author + "</a>:</div>\
