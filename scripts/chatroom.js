@@ -9,7 +9,6 @@
 			//表单提交
 			$("#sendBtn").click(function funcSubmit(){
 				updateStatus = false;
-				alert("asdf")
 //				var picPath = $("#face img").filter(".current")[0].src;
 //				var index = picPath.lastIndexOf("\/");  
 //				var picName = picPath.substring(index + 1, picPath.length);
@@ -18,12 +17,12 @@
 							name: $("#inputAuthor").val(),
 							action: "postmsg",
 							time: timestamp,
-							pic: $("#inputPic").val()
+//							pic: $("#inputPic").val()
 						}, function(xml) {
 					//清空信息文本框内容
 					$("#msg").val("");
 					//调用解析xml的函数
-					alert(xml);
+//				alert(xml);
 					addMessages(xml);
 							});
 				return false; //阻止表单提交
@@ -36,13 +35,13 @@
         //更新信息函数，每隔一定时间去服务端读取数据
 		function updateMsg(){
 			if (updateStatus == true) {
-				$.post("backend.php",{ time: timestamp }, function(xml) {
+				$.post("backend.php",{time: timestamp }, function(xml) {
 				//调用解析xml的函数
 				addMessages(xml);
 				});
 			}
 			//每隔4秒，读取一次.
-			setTimeout('updateMsg()', 100);
+			setTimeout('updateMsg()', 4000);
 		}
         //解析xml文档函数，把数据显示到页面上
 		function addMessages(xml) {

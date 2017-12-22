@@ -70,13 +70,9 @@
 	</form>
 	<input type="hidden" id="inputAuthor"  value="<?php echo $userRow['userName']; ?>" />
 	<input type="hidden" id="inputPic"  value="<?php echo $userRow['userPic']; ?>" />
+
 </div>
 	
-<input type="hidden" id="inputAuthor"  value="<?php echo $userRow['userName']; ?>" />
-<input type="hidden" id="inputPic"  value="<?php echo $userRow['userPic']; ?>" />
-    
-<!--
-    <script src="assets/jquery-1.11.3-jquery.min.js"></script>
 </body>
 </html>
 <?php ob_end_flush(); ?>
