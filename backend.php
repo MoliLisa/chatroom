@@ -5,7 +5,7 @@ $dbuser = "root";
 $dbpass = "pass";
 $dbname = "Lisabase";
 $store_num = 10;
-$display_num = 100;
+$display_num = 10;
 
 error_reporting(E_ALL);
 // header("Content-type: text/xml");
@@ -16,6 +16,8 @@ $action=$_POST['action'];
 $action=mysqli_real_escape_string($dbconn,$action);
 $time=$_POST['time'];
 $time=mysqli_real_escape_string($dbconn,$time);
+$showPosition =$_POST['showPosition'];
+$showPosition=mysqli_real_escape_string($dbconn,$showPosition);
 
 if(@$action == "postmsg"){
 	$name=$_POST['name'];
@@ -30,11 +32,11 @@ if(@$action == "postmsg"){
 //				(mysqli_insert_id($dbconn)-$store_num));
 }
 
-$messages = mysqli_query($dbconn, "SELECT user,msg,time,userPic 
+$messages = mysqli_query($dbconn, "SELECT user,msg,time,userPic FROM (SELECT user,msg,time,userPic,id
 						FROM (SELECT * FROM messages) AS table1, users 
 						WHERE table1.user=users.userName AND time>$time
-						 ORDER BY id ASC
-						 LIMIT $display_num");
+						 ORDER BY id DESC
+						 LIMIT $showPosition, $display_num) AS table2 ORDER BY id ASC");
 
  if (mysqli_num_rows($messages) == 0){
  	$status_code = 2;

@@ -59,7 +59,9 @@
 	</div>
 </div>  
 <div id="msgBox">
+	
 	<ul class="messagewindow">	
+	<li style="text-align: center;"><a id="showMore">Show More...</a></li>
 <!--
 	<li class="msgMe">
 		<div class="times"><span>12月22日 14:56</span></div>	
