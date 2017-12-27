@@ -27,6 +27,7 @@
 <script src="js/hammer.js"></script>
 <script src="js/lrz.all.bundle.js"></script>
 <script src="js/jquery.photoClip.js"></script>
+<script src="js/moment.min.js"></script>
 </head>
 <body>
 <div id="profile">
@@ -45,7 +46,8 @@
 			<input type="radio" name="face" value="face7.gif" style="display: none"><div id="faceBorder"><img src="img/face7.gif" class=""></div>
 			<input type="radio" name="face" value="face8.gif" style="display: none"><div id="faceBorder"><img src="img/face8.gif" class=""></div>
 		</div>	
-		<div id="info2">自定义头像...<input type="file" id="file" ></div>
+		<div id="info2" class="info2Temp">自定义头像...</div>
+		<input type="file" id="file" >
 	</div>
 	<div id="photoclipWapper" >	
 		<div id="clipArea"></div>
@@ -57,7 +59,27 @@
 	</div>
 </div>  
 <div id="msgBox">
-	<ul class="messagewindow">	</ul>
+	<ul class="messagewindow">	
+<!--
+	<li class="msgMe">
+		<div class="times"><span>12月22日 14:56</span></div>	
+		<div class="userPic"><img src="img/face3.gif"></div>							 
+		<div class="content">							 	
+			<div class="author"><a href="javascript:;">lisa</a>:</div>						
+			<div class="msgInfo">right</div>								
+									 
+		</div>
+	</li>
+-->
+		<li class="">
+		<div class="userPic"><img src="img/face3.gif"></div>							 
+		<div class="content">							 	
+<!--			<div class="author"><a href="javascript:;">lisa</a>:</div>								-->
+			<div class="msgInfo">right</div>								
+			<div class="times"><span>12月22日 14:56</span></div>							 
+		</div>
+	</li>
+	</ul>
 	<form class="chatform" action="#">	
 		<div>
 			<textarea id="msg" class=""></textarea>

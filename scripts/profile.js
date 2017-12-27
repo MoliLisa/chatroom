@@ -1,6 +1,7 @@
 
 $(function(){	
-	
+
+
 	var clipArea = new bjj.PhotoClip("#clipArea", {
 		size: [198, 198], 
 		outputSize: [50, 50],
@@ -31,7 +32,7 @@ $("#clipBtnCancel").click(function(){
 	$('#photoclipWapper').hide();
 	return false;//防止页面整个刷新
 });
-	
+//click default photo
 $("#face img").click(function(){						
 	var $face = $(this).attr("src");
 	$.post("upload.php",{
@@ -42,7 +43,7 @@ $("#face img").click(function(){
 	});
 });
 	
-	
+//hover default photo	
 $("#face img").hover(
 	function(){	
 	$(this).css("margin","0px");
@@ -50,7 +51,8 @@ $("#face img").hover(
 	$(this).css("margin","2px");
 	$(this).parent().css({"width": "48px", "height":"48px", "border": "0px"});}
 );
-		
+
+//click anywhere to close profileWrapper
 $(document).click(function(e) {
    if(($(e.target).parents("#profileWrapper").length==0) && e.target.id != 'profilePic')
       if ( $('#profileWrapper').is(':visible') ) {
@@ -59,8 +61,28 @@ $(document).click(function(e) {
       }
 });
 
-$("#profilePic").click( function(e){
-	$("#profileWrapper").toggle();
+//open choose photo
+$('#profilePic').click(function(){
+    if($("#profileWrapper").is(":hidden")){
+		$("#profileWrapper").fadeIn(100);
+        
+    }else{
+	$("#profileWrapper").fadeOut(400);
+    }
+});
+
+//click 自定义头像
+$("#info2").click( function(){
+	 setTimeout(function(){
+		 $('#info2').removeClass('info2Temp');
+	 }, 100);
+	 setTimeout(function(){
+		 $('#info2').addClass('info2Temp');
+	 }, 200);
+	$("#profileWrapper").fadeOut(600);
+	setTimeout(function(){
+	$("#file").click();
+	 }, 600);
 });
 
 	

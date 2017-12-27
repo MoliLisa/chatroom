@@ -5,7 +5,7 @@ $dbuser = "root";
 $dbpass = "pass";
 $dbname = "Lisabase";
 $store_num = 10;
-$display_num = 10;
+$display_num = 100;
 
 error_reporting(E_ALL);
 // header("Content-type: text/xml");
@@ -26,8 +26,8 @@ if(@$action == "postmsg"){
 	mysqli_query($dbconn, "INSERT INTO messages (`user`,`msg`,`time`) 
 	             VALUES ('$name','$message',now())");
 	
-	mysqli_query($dbconn, "DELETE FROM messages WHERE id <= ".
-				(mysqli_insert_id($dbconn)-$store_num));
+//	mysqli_query($dbconn, "DELETE FROM messages WHERE id <= ".
+//				(mysqli_insert_id($dbconn)-$store_num));
 }
 
 $messages = mysqli_query($dbconn, "SELECT user,msg,time,userPic 
