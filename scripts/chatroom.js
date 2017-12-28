@@ -37,8 +37,19 @@ $(function(){
 				addMessages(xml,"o");
 				});
 //		alert(showMorePosition);
-	})
-
+	});
+$("#msg").keypress(function (e) {
+        if (e.keyCode == 13) {
+			if (e.ctrlKey || e.shiftKey) {
+				e.preventDefault();  
+				$("#msg").val($("#msg").val()+"\n");
+				
+				return true;
+			}
+            $("#sendBtn").trigger('click');
+			 e.preventDefault();  
+        }
+    });
 });
         //更新信息函数，每隔一定时间去服务端读取数据
 		function updateMsg(){
@@ -60,20 +71,23 @@ $(function(){
 //			timestamp = $("time",xml).text();
 			//$.each循环数据
 			$("ul li").eq(1).attr("id","liMark");
-					
+			if (showStatus == "o"){ //everytime click showmore，set a temp lastupdatetime =0,
+					chatroomLastUpdateTimeTemp = 0;
+				}		
 			$("message",xml).each(function() {
 			    var author = $("author",this).text(); //发布者
 				var content = $("text",this).text();  //内容
 				if (content.match(/^\s*$/)){ //all space or \\n or empty
 					content = "&nbsp";
 				}
+				alert(content);
+				content = content.replace(/\n/g, "<br>");  //change /n to <br>, so html has line break 
+				alert(content);
 				time = $("time",this).text();
 				if (showStatus == "n"){
 					
 					timestamp = $("time",this).text();  //内容
 				}
-				
-				
 //				var htmlcode = "<strong>"+author+"</strong>: "+content+"<br />";
 				var userpic = $("pic",this).text();
 				if ($("#inputAuthor").val() == author){
@@ -81,7 +95,7 @@ $(function(){
 				}else{
 					msgMe = "";
 				}
-				var htmlcode = "<li" + msgMe + "><div class=\"times\"><span>" + timeFormat(time) + "</span></div>\
+				var htmlcode = "<li" + msgMe + "><div class=\"times\"><span>" + timeFormat(time, showStatus) + "</span></div>\
 							<div class=\"userPic\"><img src=\"" + userpic + "\"></div>\
 							 <div class=\"content\">\
 								<div class=\"msgInfo\">" + content + "</div>\
@@ -103,7 +117,7 @@ $(function(){
 			
 		}
 		
-		function timeFormat(Time){//将当前时间转换成yyyymmdd格式
+		function timeFormat(Time, showStatus){//将当前时间转换成yyyymmdd格式
 			var weekday=new Array(7);
 			weekday[0]="Sunday";
 			weekday[1]="Monday";
@@ -114,7 +128,8 @@ $(function(){
 			weekday[6]="Saturday";
 			
 			var $curTime = new Date().Format("MM/dd/yyyy");  //current time->决定日期部分如何显示
-			var $curYear = new Date().Format("yyyy");
+			$curTime = "12/27/2018";
+			var $curYear = $curTime.substr(6,4);
 			var $chatTime = Time.toString(); //chat time
 			var $chatyear = $chatTime.substr(0,4);
 			var $chatmonth = $chatTime.substr(4,2);
@@ -123,8 +138,8 @@ $(function(){
 			var $chatmin = $chatTime.substr(10,2);
 			var $chatsec = $chatTime.substr(12 ,2); 
 			var $chatTime = $chatyear+' '+$chatmonth+' '+$chatday +' '+$chathour+':'+$chatmin+':'+$chatsec; // mm/dd/yyyy yyyy mm dd parse都可以用
-//			$curTime = "12/27/2017";
-//			$curYear = "2017";
+			
+//			$curYear = "2018";
 			var dayDiff=((Date.parse($curTime)-Date.parse($chatTime))/86400000);
 			dayDiff = Math.abs(dayDiff);
 			var yearDiff = Math.abs($curYear-$chatyear);
@@ -133,23 +148,29 @@ $(function(){
 				result = $chatyear+"-"+$chatmonth+"-"+$chatday+"  ";
 			}else{//两年内（今年和去年）不现实年份
 				if (dayDiff == 0){//当天：只显示时间
-					alert("0");
 					result = "";
 				}else if (dayDiff >=1 && dayDiff <=6){//1-6天：显示星期几
 					result = weekday[(new Date(Date.parse($chatTime))).getDay()] + "  ";//返回星期几 
-					alert("1");
 				}else if (dayDiff >=7){//大于7天 显示日期
 					result = $chatmonth+"-"+$chatday+"  ";
-					alert("2");
 				}
 			}
-		
-			var minDiff=(Date.parse($chatTime)-Date.parse(chatroomLastUpdateTime))/60000;
-			if (minDiff<=5){//五分钟之内
-				result="";
-			}else{
-				result = result + $chathour+':'+$chatmin;
-				chatroomLastUpdateTime = $chatTime;
+			if (showStatus == "n"){
+				var minDiff=(Date.parse($chatTime)-Date.parse(chatroomLastUpdateTime))/60000;
+				if (minDiff<=5){//五分钟之内
+					result="";
+				}else{
+					result = result + $chathour+':'+$chatmin;
+					chatroomLastUpdateTime = $chatTime;
+				}
+			}else if (showStatus == "o"){
+				var minDiff=(Date.parse($chatTime)-Date.parse(chatroomLastUpdateTimeTemp))/60000;
+				if (minDiff<=5){//五分钟之内
+					result="";
+				}else{
+					result = result + $chathour+':'+$chatmin;
+					chatroomLastUpdateTimeTemp = $chatTime;
+				}
 			}
 			return result;//返回星期几
 		  }

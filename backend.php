@@ -23,7 +23,7 @@ if(@$action == "postmsg"){
 	$name=$_POST['name'];
 	$name=mysqli_real_escape_string($dbconn,$name);
 	$message=$_POST['message'];
-	$message=mysqli_real_escape_string($dbconn,$message);
+//	$message=mysqli_real_escape_string($dbconn,$message);
 	
 	mysqli_query($dbconn, "INSERT INTO messages (`user`,`msg`,`time`) 
 	             VALUES ('$name','$message',now())");

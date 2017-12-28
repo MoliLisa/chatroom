@@ -62,33 +62,23 @@
 	
 	<ul class="messagewindow">	
 	<li style="text-align: center;"><a id="showMore">Show More...</a></li>
-<!--
 	<li class="msgMe">
 		<div class="times"><span>12月22日 14:56</span></div>	
 		<div class="userPic"><img src="img/face3.gif"></div>							 
 		<div class="content">							 	
 			<div class="author"><a href="javascript:;">lisa</a>:</div>						
-			<div class="msgInfo">right</div>								
+			<div class="msgInfo">righ<br>&nbsp</div>								
 									 
-		</div>
-	</li>
--->
-		<li class="">
-		<div class="userPic"><img src="img/face3.gif"></div>							 
-		<div class="content">							 	
-<!--			<div class="author"><a href="javascript:;">lisa</a>:</div>								-->
-			<div class="msgInfo">right</div>								
-			<div class="times"><span>12月22日 14:56</span></div>							 
 		</div>
 	</li>
 	</ul>
 	<form class="chatform" action="#">	
 		<div>
-			<textarea id="msg" class=""></textarea>
+			<textarea id="msg" class="" ></textarea>
 		</div>
 		<div class="tr">
 			<p>
-				<input id="sendBtn" type="submit" value="" title="快捷键 Ctrl+Enter" class="">
+				<input id="sendBtn" type="submit" value="" title="快捷键 Ctrl+Enter" class="" >
 			</p>
 		</div>
 	</form>
