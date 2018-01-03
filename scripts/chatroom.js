@@ -80,9 +80,9 @@ $("#msg").keypress(function (e) {
 				if (content.match(/^\s*$/)){ //all space or \\n or empty
 					content = "&nbsp";
 				}
-				alert(content);
+//				alert(content);
 				content = content.replace(/\n/g, "<br>");  //change /n to <br>, so html has line break 
-				alert(content);
+//				alert(content);
 				time = $("time",this).text();
 				if (showStatus == "n"){
 					
@@ -128,7 +128,7 @@ $("#msg").keypress(function (e) {
 			weekday[6]="Saturday";
 			
 			var $curTime = new Date().Format("MM/dd/yyyy");  //current time->决定日期部分如何显示
-			$curTime = "12/27/2018";
+//			$curTime = "01/06/2020";
 			var $curYear = $curTime.substr(6,4);
 			var $chatTime = Time.toString(); //chat time
 			var $chatyear = $chatTime.substr(0,4);
@@ -140,7 +140,7 @@ $("#msg").keypress(function (e) {
 			var $chatTime = $chatyear+' '+$chatmonth+' '+$chatday +' '+$chathour+':'+$chatmin+':'+$chatsec; // mm/dd/yyyy yyyy mm dd parse都可以用
 			
 //			$curYear = "2018";
-			var dayDiff=((Date.parse($curTime)-Date.parse($chatTime))/86400000);
+			var dayDiff=((Date.parse($curTime)-Date.parse($chatmonth + "/" + $chatday + "/" + $chatyear))/86400000);
 			dayDiff = Math.abs(dayDiff);
 			var yearDiff = Math.abs($curYear-$chatyear);
 			var result = "";
@@ -149,7 +149,10 @@ $("#msg").keypress(function (e) {
 			}else{//两年内（今年和去年）不现实年份
 				if (dayDiff == 0){//当天：只显示时间
 					result = "";
-				}else if (dayDiff >=1 && dayDiff <=6){//1-6天：显示星期几
+				}else if (dayDiff == 1){//1-6天：显示星期几
+//					alert("y")
+					result = "Yesterday  ";//返回星期几 
+				}else if (dayDiff >=2 && dayDiff <=6){//1-6天：显示星期几
 					result = weekday[(new Date(Date.parse($chatTime))).getDay()] + "  ";//返回星期几 
 				}else if (dayDiff >=7){//大于7天 显示日期
 					result = $chatmonth+"-"+$chatday+"  ";
