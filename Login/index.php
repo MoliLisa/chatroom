@@ -14,21 +14,33 @@
 	if( isset($_POST['btn-login']) ) {	
 		
 		// prevent sql injections/ clear user invalid inputs
+<<<<<<< HEAD:Login/index.php
 		$email = trim($_POST['email']);
 		$email = strip_tags($email);
 		$email = htmlspecialchars($email);
+=======
+		$name = trim($_POST['name']);
+		$name = strip_tags($name);
+		$name = htmlspecialchars($name);
+>>>>>>> d7dc8b8615575bbb5f038232ced2f5c11d8ae507:index.php
 		
 		$pass = trim($_POST['pass']);
 		$pass = strip_tags($pass);
 		$pass = htmlspecialchars($pass);
 		// prevent sql injections / clear user invalid inputs
 		
+<<<<<<< HEAD:Login/index.php
 		if(empty($email)){
 			$error = true;
 			$emailError = "Please enter your email address.";
 		} else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
 			$error = true;
 			$emailError = "Please enter valid email address.";
+=======
+		if(empty($name)){
+			$error = true;
+			$nameError = "Please enter your name.";
+>>>>>>> d7dc8b8615575bbb5f038232ced2f5c11d8ae507:index.php
 		}
 		
 		if(empty($pass)){
@@ -41,7 +53,11 @@
 			
 			$password = hash('sha256', $pass); // password hashing using SHA256
 		
+<<<<<<< HEAD:Login/index.php
 			$res=mysql_query("SELECT userId, userName, userPass FROM users WHERE userEmail='$email'");
+=======
+			$res=mysql_query("SELECT userId, userName, userPass FROM users WHERE userName='$name'");
+>>>>>>> d7dc8b8615575bbb5f038232ced2f5c11d8ae507:index.php
 			$row=mysql_fetch_array($res);
 			$count = mysql_num_rows($res); // if uname/pass correct it returns must be 1 row
 			
@@ -59,6 +75,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD:Login/index.php
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -84,6 +101,12 @@
 	<script src="js/main.js"></script>
 <title>Login & Registration System</title>
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"  />
+=======
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Coding Cage - Login & Registration System</title>
+<link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"  />
+<link rel="stylesheet" href="style.css" type="text/css" />
+>>>>>>> d7dc8b8615575bbb5f038232ced2f5c11d8ae507:index.php
 </head>
 <body>
 
@@ -114,6 +137,7 @@
                 <?php
 			}
 			?>
+<<<<<<< HEAD:Login/index.php
             
             <div class="form-group">
             	<div class="input-group">
@@ -121,6 +145,16 @@
             	<input type="email" name="email" class="form-control" placeholder="Your Email" value="<?php echo $email; ?>" maxlength="40" />
                 </div>
                 <span class="text-danger"><?php echo $emailError; ?></span>
+=======
+
+			
+			<div class="form-group">
+            	<div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+            	<input type="text" name="name" class="form-control" placeholder="Enter Name" maxlength="50" value="<?php echo $name ?>" />
+                </div>
+                <span class="text-danger"><?php echo $nameError; ?></span>
+>>>>>>> d7dc8b8615575bbb5f038232ced2f5c11d8ae507:index.php
             </div>
             
             <div class="form-group">
@@ -154,6 +188,7 @@
 
 </div>
 
+<<<<<<< HEAD:Login/index.php
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100 p-t-30 p-b-50">
@@ -188,6 +223,8 @@
 	
 
 
+=======
+>>>>>>> d7dc8b8615575bbb5f038232ced2f5c11d8ae507:index.php
 </body>
 </html>
 <?php ob_end_flush(); ?>
